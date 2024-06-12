@@ -57,10 +57,5 @@ jobs:
       - name: Manifest diff
         run: git diff ${{ matrix.manifest_path }}
         
-      - name: Check if there are changes
-        id: changes
-        uses: UnicornGlobal/has-changes-action@v1.0.11
-        
-      - name: Process changes
-        if: steps.changes.outputs.changed == 1
-        run: echo 'Changes exist' && exit 1
+      - name: Check repo status
+        run: if [[ -z $(git status -s) ]]; then echo "Clean status"; else echo "Dirty status"; git status; exit 1; fi
