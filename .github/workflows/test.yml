@@ -3,17 +3,7 @@ on:
   push:
     branches: [ "main" ]
   workflow_dispatch:
-
-
-# Example of paramtrization, based on https://stackoverflow.com/a/68940067/19085332
-
-# steps:
-#   - name: Compile with C++ compiler
-#     run: ${{ matrix.case.repository }} ..
-#   - name: Compile with C compiler
-#     run: ${{ matrix.compiler.c }} source.c
-  
-
+ 
 jobs:
   test1:
     runs-on: ubuntu-22.04
@@ -21,18 +11,20 @@ jobs:
     strategy:
       matrix:
         external_github_repository: [skip]
-        version: [skip]
+        cmd_install: [skip]
         include:
           - external_github_repository: fmi-basel/gliberal-scMultipleX
-            version: myversion
+            cmd_install: 'python -m pip install -e .[fractal-tasks]'
         exclude:
           - external_github_repository: skip
-            version: skip
+            cmd_install: skip
     steps:
 
       - name: Print info
         run: |
-          echo 'repo: ${{ matrix.external_github_repository }}'
+          echo 'repo: ${{ matrix.external_github_repository }}' |
+          echo 'cmd_install: ${{ matrix.cmd_install }}' |
+          
 
       # Get package source code
       - uses: actions/checkout@v4
@@ -47,7 +39,7 @@ jobs:
           
       # Install package
       - name: Install package
-        run: python -m pip install -e .[fractal-tasks]
+        run:  ${{ matrix.cmd_install }}
 
       # Create manifest
       - name: Create manifest
