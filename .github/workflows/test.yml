@@ -12,7 +12,8 @@ jobs:
       # Get Python
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.10' 
+          python-version: '3.10'
+          cache: 'pip'
           
       # Get package source code
       - uses: actions/checkout@v4
