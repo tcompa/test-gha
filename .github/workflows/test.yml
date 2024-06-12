@@ -26,35 +26,30 @@ jobs:
             manifest_path: skip
     steps:
 
-      - name: Print info
+      - name: Print matrix-element information
         run: |
           echo 'repo: ${{ matrix.external_github_repository }}' |
           echo 'cmd_install: ${{ matrix.cmd_install }}' |
           echo 'cmd_create_manifest: ${{ matrix.cmd_create_manifest }}' |
           echo 'manifest_path: ${{ matrix.manifest_path }}'
           
-
-      # Get package source code
-      - uses: actions/checkout@v4
+      - name: Get package source code
+        uses: actions/checkout@v4
         with:
           repository: ${{ matrix.external_github_repository }}
 
-      # Get Python
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
           cache: 'pip'
           
-      # Install package
       - name: Install package
         run:  ${{ matrix.cmd_install }}
 
-      # Create manifest
       - name: Create manifest
         run: ${{ matrix.cmd_create_manifest }}
 
-      # Run git diff for manifest
-      - name: Manifest diff
+      - name: Run git diff for manifest
         run: git diff ${{ matrix.manifest_path }}
         
       - name: Check repo status
