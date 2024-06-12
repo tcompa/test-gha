@@ -12,18 +12,26 @@ jobs:
       matrix:
         external_github_repository: [skip]
         cmd_install: [skip]
+        cmd_create_manifest: [skip]
+        manifest_path: [skip]
         include:
           - external_github_repository: fmi-basel/gliberal-scMultipleX
             cmd_install: 'python -m pip install -e .[fractal-tasks]'
+            cmd_create_manifest: 'python src/scmultiplex/dev/create_manifest.py'
+            manifest_path: src/scmultiplex/__FRACTAL_MANIFEST__.json
         exclude:
           - external_github_repository: skip
             cmd_install: skip
+            cmd_create_manifest: skip
+            manifest_path: skip
     steps:
 
       - name: Print info
         run: |
           echo 'repo: ${{ matrix.external_github_repository }}' |
           echo 'cmd_install: ${{ matrix.cmd_install }}' |
+          echo 'cmd_create_manifest: ${{ matrix.cmd_create_manifest }} |
+          echo 'manifest_path: ${{ matrix.manifest_path }}'
           
 
       # Get package source code
@@ -43,11 +51,11 @@ jobs:
 
       # Create manifest
       - name: Create manifest
-        run: python src/scmultiplex/dev/create_manifest.py
+        run: ${{ matrix.cmd_create_manifest }}
 
       # Run git diff for manifest
       - name: Manifest diff
-        run: git diff src/scmultiplex/__FRACTAL_MANIFEST__.json
+        run: git diff ${{ matrix.manifest_path }}
         
       - name: Check if there are changes
         id: changes
