@@ -31,8 +31,9 @@ jobs:
       - name: Manifest diff
         run: git diff src/scmultiplex/__FRACTAL_MANIFEST__.json
 
-      - name: Report status
-        run: |
-          [[ -n $(git status -s) ]] && echo 'modified and/or untracked' |
-          [[ -z $(git status -s) ]] && echo 'clean' && exit 1
+      - name: Report dirty status
+        run: [[ -n $(git status -s) ]] && echo 'Status is dirty, exit 1.' && exit 1
+
+      - name: Report clean status
+        run: [[ -z $(git status -s) ]] && echo 'Status is clean, exit 0.' && exit 1=0
 
