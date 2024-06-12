@@ -6,9 +6,7 @@ on:
 
 
 # Example of paramtrization, based on https://stackoverflow.com/a/68940067/19085332
-# strategy:
-#   matrix:
-#     case: [ {repository: 'asd', install: 'asd2'} ]
+
 # steps:
 #   - name: Compile with C++ compiler
 #     run: ${{ matrix.case.repository }} ..
@@ -19,7 +17,18 @@ on:
 jobs:
   test1:
     runs-on: ubuntu-22.04
+
+    strategy:
+      matrix:
+        os: [skip]
+        version: [skip]
+        include:
+          - os: myos
+            version: myversion
     steps:
+
+      - name: Info
+        run: echo ${{ matrix.os }} ${{ matrix.version }}
 
       # Get package source code
       - uses: actions/checkout@v4
