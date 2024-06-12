@@ -25,6 +25,9 @@ jobs:
         include:
           - os: myos
             version: myversion
+        exclude:
+          - os: skip
+            version: skip
     steps:
 
       - name: Info
