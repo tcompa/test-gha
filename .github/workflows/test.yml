@@ -34,5 +34,5 @@ jobs:
       - name: Report status
         run: |
           [[ -n $(git status -s) ]] && echo 'modified and/or untracked' |
-          [[ -z $(git status -s) ]] && echo 'clean'
+          [[ -z $(git status -s) ]] && echo 'clean' && exit 1
 
