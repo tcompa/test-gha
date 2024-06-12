@@ -21,8 +21,12 @@ jobs:
           
       # Install package
       - name: Install package
-        run: python -m pip install .[fractal-tasks]
+        run: python -m pip install -e .[fractal-tasks]
 
       # Create manifest
       - name: Create manifest
         run: python src/scmultiplex/dev/create_manifest.py
+
+      # Run git diff for manifest
+      - name: Manifest diff
+        run: git diff src/scmultiplex/__FRACTAL_MANIFEST__.json
