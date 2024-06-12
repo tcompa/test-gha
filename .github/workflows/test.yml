@@ -30,3 +30,9 @@ jobs:
       # Run git diff for manifest
       - name: Manifest diff
         run: git diff src/scmultiplex/__FRACTAL_MANIFEST__.json
+
+      - name: Report status
+        run: |
+          [[ -n $(git status -s) ]] && echo 'modified and/or untracked' |
+          [[ -z $(git status -s) ]] && echo 'clean'
+
