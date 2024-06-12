@@ -20,23 +20,24 @@ jobs:
 
     strategy:
       matrix:
-        os: [skip]
+        external_github_repository: [skip]
         version: [skip]
         include:
-          - os: myos
+          - external_github_repository: fmi-basel/gliberal-scMultipleX
             version: myversion
         exclude:
-          - os: skip
+          - external_github_repository: skip
             version: skip
     steps:
 
-      - name: Info
-        run: echo ${{ matrix.os }} ${{ matrix.version }}
+      - name: Print info
+        run: |
+          echo 'repo: ${{ matrix.external_github_repository }}'
 
       # Get package source code
       - uses: actions/checkout@v4
         with:
-          repository: fmi-basel/gliberal-scMultipleX
+          repository: ${{ matrix.external_github_repository }}
 
       # Get Python
       - uses: actions/setup-python@v5
