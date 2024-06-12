@@ -14,15 +14,24 @@ jobs:
         cmd_install: [skip]
         cmd_create_manifest: [skip]
         manifest_path: [skip]
+        
         include:
+        
           - external_github_repository: fmi-basel/gliberal-scMultipleX
             cmd_install: 'python -m pip install -e .[fractal-tasks]'
             cmd_create_manifest: 'python src/scmultiplex/dev/create_manifest.py'
             manifest_path: src/scmultiplex/__FRACTAL_MANIFEST__.json
+            
           - external_github_repository: jluethi/fractal-helper-tasks
             cmd_install: 'python -m pip install -e .'
             cmd_create_manifest: 'python src/fractal_helper_tasks/dev/create_manifest.py'
             manifest_path: src/fractal_helper_tasks/__FRACTAL_MANIFEST__.json
+            
+          - external_github_repository: Apricot-Therapeutics/APx_fractal_task_collection
+            cmd_install: 'python -m pip install -e .'
+            cmd_create_manifest: 'python src/apx_fractal_task_collection/dev/update_manifest.py'
+            manifest_path: src/apx_fractal_task_collection/__FRACTAL_MANIFEST__.json
+            
         exclude:
           - external_github_repository: skip
             cmd_install: skip
