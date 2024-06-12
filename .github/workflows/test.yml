@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: fmi-basel/gliberal-scMultipleX.git
+          repository: fmi-basel/gliberal-scMultipleX
 
       - name: Run a one-line script
         run: git clone https://github.com/
