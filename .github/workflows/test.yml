@@ -30,7 +30,7 @@ jobs:
         run: |
           echo 'repo: ${{ matrix.external_github_repository }}' |
           echo 'cmd_install: ${{ matrix.cmd_install }}' |
-          echo 'cmd_create_manifest: ${{ matrix.cmd_create_manifest }} |
+          echo 'cmd_create_manifest: ${{ matrix.cmd_create_manifest }}' |
           echo 'manifest_path: ${{ matrix.manifest_path }}'
           
 
