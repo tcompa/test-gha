@@ -13,7 +13,7 @@ jobs:
           repository: fmi-basel/gliberal-scMultipleX
 
       - name: Run a one-line script
-        run: git clone https://github.com/
+        run: ls
 
       - name: Run a multi-line script
         run: |
